@@ -25,6 +25,6 @@ public class PlayerController : NetworkBehaviour
 
         Vector3 movement = new Vector3(x, 0, y);
 
-        transform.position += Vector3.ClampMagnitude(movement, 1) * MovementSpeed * Time.deltaTime;
+        transform.Translate(movement * MovementSpeed * Time.deltaTime);
     }
 }
