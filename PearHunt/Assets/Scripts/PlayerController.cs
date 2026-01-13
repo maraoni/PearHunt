@@ -24,7 +24,9 @@ public class PlayerController : NetworkBehaviour
         y = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(x, 0, y);
-
-        transform.position += Vector3.ClampMagnitude(movement, 1) * MovementSpeed * Time.deltaTime;
+        Vector3 targetPosition = Vector3.ClampMagnitude(movement, 1) * MovementSpeed * Time.deltaTime;
+        
+        // Cause we wanna move based on direction we are facing (body)
+        transform.position += transform.TransformDirection(targetPosition);
     }
 }
