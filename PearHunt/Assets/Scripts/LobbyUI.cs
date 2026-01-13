@@ -47,7 +47,7 @@ public class LobbyUI : MonoBehaviour
 
     void ChangeIP(string aInput)
     {
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(aInput, 7777);
+        NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Address = aInput;
         // change the IP we want to connect to!
     }
 
