@@ -28,20 +28,21 @@ public class LobbyUI : MonoBehaviour
 
     void StartClient()
     {
-        NetworkManager.Singleton.StartClient();
-        DeactivateButtons();
+        
+        if (NetworkManager.Singleton.StartClient())
+        {
+            Debug.Log("Client started");
+        }
+        else
+        {
+            Debug.LogError("Client failed to start");
+        }
     }
 
     void StartHost()
     {
         NetworkManager.Singleton.StartHost();
-        DeactivateButtons();
-    }
-
-    void DeactivateButtons()
-    {
-        m_StartHostButton.interactable = false;
-        m_StartClientButton.interactable = false;
+        
     }
 
     void ChangeIP(string aInput)
