@@ -16,9 +16,7 @@ public class CameraController : MonoBehaviour
 
     Transform Target = null;
 
-    [Header("Camera Settings")] [SerializeField]
-    private Camera playerCamera;
-
+    [Header("Camera Settings")]
     [SerializeField] private LayerMask cameraBlockingLayer;
 
     [Header("Player Camera Settings")] [SerializeField]
@@ -34,6 +32,8 @@ public class CameraController : MonoBehaviour
     private Vector2 _playerTargetRotation = Vector3.zero;
     private Vector3 _targetCenter;
     private Coroutine _cameraPositionResetCoroutine;
+    
+    private Camera _camera;
 
     public void InitializeCamera(Transform aTarget)
     {
@@ -42,7 +42,15 @@ public class CameraController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         
-        playerCamera.transform.localPosition = new Vector3(0f, 0f, cameraOffset);
+        _camera = Camera.main;
+        if (_camera == null)
+        {
+            _camera = new GameObject().AddComponent<Camera>();
+        }
+        
+        _camera.transform.SetParent(transform);
+        
+        _camera.transform.localPosition = new Vector3(0f, 0f, cameraOffset);
         _targetCenter = Target.gameObject.GetComponent<Collider>().bounds.center;
         //Debug.Log(_targetCenter);
         transform.position += new Vector3(0f, _targetCenter.y, 0f);
@@ -59,7 +67,7 @@ public class CameraController : MonoBehaviour
     private void CheckIfCameraIsBlocked()
     {
         // Raycast from us to camera
-        Vector3 direction = playerCamera.transform.position - transform.position;
+        Vector3 direction = _camera.transform.position - transform.position;
         Vector3 start = Target.position + new Vector3(0f, _targetCenter.y, 0f);
 
         if (Physics.Raycast(start, direction, out RaycastHit hit, -cameraOffset, cameraBlockingLayer))
@@ -73,14 +81,14 @@ public class CameraController : MonoBehaviour
             
             if (hit.collider)
             {
-                playerCamera.transform.localPosition = new Vector3(0f, 0f,
+                _camera.transform.localPosition = new Vector3(0f, 0f,
                     -Mathf.Max(Vector3.Distance(start, hit.point), 1f));
             }
         }
         else
         {
             // Check if we need to reset
-            if (playerCamera.transform.localPosition.Equals(new Vector3(0f, 0f, cameraOffset)) is false)
+            if (_camera.transform.localPosition.Equals(new Vector3(0f, 0f, cameraOffset)) is false)
             {
                 _cameraPositionResetCoroutine ??= StartCoroutine(ResetCameraLocalPosition());
             }
@@ -113,11 +121,11 @@ public class CameraController : MonoBehaviour
 
     private IEnumerator ResetCameraLocalPosition()
     {
-        Vector3 start = playerCamera.transform.localPosition;
+        Vector3 start = _camera.transform.localPosition;
         
         for (float t = 0; t < 1f; t += Time.deltaTime * cameraResetSpeed)
         {
-            playerCamera.transform.localPosition = Vector3.Lerp(start, new Vector3(0f, 0f, cameraOffset), t);
+            _camera.transform.localPosition = Vector3.Lerp(start, new Vector3(0f, 0f, cameraOffset), t);
             yield return null;
         }
 
