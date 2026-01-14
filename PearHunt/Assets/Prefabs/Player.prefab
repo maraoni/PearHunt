@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9d7677232502c4da302b4635adf66b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwitchProp
+  ShowTopMostFoldoutHeaderGroup: 1
   props:
   - mesh: {fileID: -5754084199372789682, guid: 5aa13bccd55e1394ab142701dd55bbde, type: 3}
     inUse: 1
@@ -187,8 +188,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.95459443, z: 1}
-  m_Center: {x: 0, y: 0.5227028, z: 0}
+  m_Size: {x: 0.6772866, y: 0.95992756, z: 0.69617146}
+  m_Center: {x: 0.005614519, y: 0.5253693, z: 0.00093850493}
 --- !u!1001 &175870115725727645
 PrefabInstance:
   m_ObjectHideFlags: 0
