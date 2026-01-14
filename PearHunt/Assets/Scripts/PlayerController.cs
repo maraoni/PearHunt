@@ -45,20 +45,7 @@ public class PlayerController : NetworkBehaviour
             StartCoroutine(jumping());
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Taunt(SoundEffects.Taunt1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Taunt(SoundEffects.Taunt2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Taunt(SoundEffects.Taunt3);
-        }
+       
     }
     bool GroundCheck()
     {
@@ -85,10 +72,5 @@ public class PlayerController : NetworkBehaviour
     private void OnDrawGizmos()
     {
         Debug.DrawRay(transform.position, Vector3.down * groundCheckRange, Color.green);
-    }
-
-    public void Taunt(SoundEffects effect)
-    {
-        SoundManager.Instance.PlaySound_ServerRPC(effect);
     }
 }
