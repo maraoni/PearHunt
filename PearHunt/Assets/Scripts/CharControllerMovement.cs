@@ -55,6 +55,35 @@ public class CharControllerMovement : NetworkBehaviour
 
         Vector3 finalMove = (move * speed) + new Vector3(0, velocity.y, 0);
         
-        controller.Move(finalMove * Time.deltaTime);
+        controller.Move(finalMove * Time.deltaTime); 
+        
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            PlayTaunt_ServerRPC(SoundEffects.Taunt1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayTaunt_ServerRPC(SoundEffects.Taunt2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PlayTaunt_ServerRPC(SoundEffects.Taunt3);
+        }
+    }
+
+    [ServerRpc]
+    public void PlayTaunt_ServerRPC(SoundEffects anEffect)
+    {
+        BroadcastTaunt_ClientRPC(anEffect);
+        Debug.Log("playing sound on server" + anEffect.ToString());
+    }
+
+    [ClientRpc]
+    public void BroadcastTaunt_ClientRPC(SoundEffects anEffect)
+    {
+        SoundManager.Instance.PlaySoundEffect(anEffect);
+        Debug.Log("playing sound on client" + anEffect.ToString());
     }
 }

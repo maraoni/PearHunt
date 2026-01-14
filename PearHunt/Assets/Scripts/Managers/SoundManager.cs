@@ -37,17 +37,7 @@ public class SoundManager : MonoBehaviour
             }
     }
 
-    [ServerRpc]
-    public void PlaySound_ServerRPC(SoundEffects anEffect)
-    {
-        Broadcast_ClientRPC(anEffect);
-    }
-
-    [ClientRpc]
-    public void Broadcast_ClientRPC(SoundEffects anEffect)
-    {
-        PlaySoundEffect(anEffect);
-    }
+   
 
     #region Singleton
 
