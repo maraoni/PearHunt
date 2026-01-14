@@ -1246,7 +1246,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20457c73cf710d84bac8110b6fbb1a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  offset: {x: 1, y: 1, z: 1}
+  cameraBlockingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  lookSensitivity: 50
+  cameraOffset: -5
+  HorizontalClamp: 80
+  targetBodyRotateSpeed: 10
+  cameraResetSpeed: 2
 --- !u!114 &1114036902
 MonoBehaviour:
   m_ObjectHideFlags: 0

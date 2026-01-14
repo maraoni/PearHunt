@@ -41,6 +41,7 @@ public class CameraController : MonoBehaviour
 
     private Camera _camera;
     private CameraState _cameraState = CameraState.ThirdPerson;
+    MeshRenderer _mesh;
 
     public void InitializeCamera(Transform aTarget)
     {
@@ -61,6 +62,7 @@ public class CameraController : MonoBehaviour
         _targetCenter = Target.gameObject.GetComponent<Collider>().bounds.center;
         //Debug.Log(_targetCenter);
         transform.position += new Vector3(0f, _targetCenter.y, 0f);
+        _mesh = Target.GetComponentInChildren<MeshRenderer>();
     }
 
     void Update()
@@ -154,12 +156,21 @@ public class CameraController : MonoBehaviour
 
         if (_cameraState == CameraState.FirstPerson)
         {
+            
+            _mesh.enabled = false;
+
             if (_cameraPositionResetCoroutine != null)
             {
                 StopCoroutine(_cameraPositionResetCoroutine);
                 _cameraPositionResetCoroutine = null;
             }
             _camera.transform.localPosition = _targetCenter;
+        }
+        else if (_cameraState == CameraState.ThirdPerson)
+        {
+            _mesh = Target.GetComponentInChildren<MeshRenderer>();
+            _mesh.enabled = true;
+            
         }
     }
 }

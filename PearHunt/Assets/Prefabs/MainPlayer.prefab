@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1339680998
+  GlobalObjectIdHash: 2703761001
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -163,10 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9d7677232502c4da302b4635adf66b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwitchProp
+  ShowTopMostFoldoutHeaderGroup: 1
   props:
   - mesh: {fileID: -5754084199372789682, guid: 5aa13bccd55e1394ab142701dd55bbde, type: 3}
     inUse: 1
   - mesh: {fileID: -5754084199372789682, guid: 0933a436ada8c2c43af11ca5dbf435a1, type: 3}
+    inUse: 0
+  - mesh: {fileID: -5754084199372789682, guid: edf9b513ce3c12b48bc57d39e39e6ec9, type: 3}
     inUse: 0
   switchProp: 114
 --- !u!65 &-130737037387111027
@@ -237,7 +240,7 @@ MonoBehaviour:
   cameraBlockingLayer:
     serializedVersion: 2
     m_Bits: 64
-  lookSensitivity: 50
+  lookSensitivity: 200
   cameraOffset: -5
   HorizontalClamp: 80
   targetBodyRotateSpeed: 10
