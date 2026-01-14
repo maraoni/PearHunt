@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public enum CameraState
+    {
+        FirstPerson,
+        ThirdPerson,
+    }
+
     #region Singleton
 
     public static CameraController Instance;
@@ -16,8 +22,8 @@ public class CameraController : MonoBehaviour
 
     Transform Target = null;
 
-    [Header("Camera Settings")]
-    [SerializeField] private LayerMask cameraBlockingLayer;
+    [Header("Camera Settings")] [SerializeField]
+    private LayerMask cameraBlockingLayer;
 
     [Header("Player Camera Settings")] [SerializeField]
     private float lookSensitivity = 50f;
@@ -32,8 +38,9 @@ public class CameraController : MonoBehaviour
     private Vector2 _playerTargetRotation = Vector3.zero;
     private Vector3 _targetCenter;
     private Coroutine _cameraPositionResetCoroutine;
-    
+
     private Camera _camera;
+    private CameraState _cameraState = CameraState.ThirdPerson;
 
     public void InitializeCamera(Transform aTarget)
     {
@@ -41,15 +48,15 @@ public class CameraController : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        
+
         _camera = Camera.main;
         if (_camera == null)
         {
             _camera = new GameObject().AddComponent<Camera>();
         }
-        
+
         _camera.transform.SetParent(transform);
-        
+
         _camera.transform.localPosition = new Vector3(0f, 0f, cameraOffset);
         _targetCenter = Target.gameObject.GetComponent<Collider>().bounds.center;
         //Debug.Log(_targetCenter);
@@ -59,8 +66,17 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         if (Target == null) return;
-        
-        CheckIfCameraIsBlocked(); // todo: maybe needs to be checked every .25 seconds for optimization
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            SwitchCameraState();
+        }
+
+        if (_cameraState == CameraState.ThirdPerson)
+        {
+            CheckIfCameraIsBlocked(); // todo: maybe needs to be checked every .25 seconds for optimization
+        }
+
         UpdateCameraOnLook();
     }
 
@@ -78,7 +94,7 @@ public class CameraController : MonoBehaviour
                 StopCoroutine(_cameraPositionResetCoroutine);
                 _cameraPositionResetCoroutine = null;
             }
-            
+
             if (hit.collider)
             {
                 _camera.transform.localPosition = new Vector3(0f, 0f,
@@ -122,7 +138,7 @@ public class CameraController : MonoBehaviour
     private IEnumerator ResetCameraLocalPosition()
     {
         Vector3 start = _camera.transform.localPosition;
-        
+
         for (float t = 0; t < 1f; t += Time.deltaTime * cameraResetSpeed)
         {
             _camera.transform.localPosition = Vector3.Lerp(start, new Vector3(0f, 0f, cameraOffset), t);
@@ -130,5 +146,20 @@ public class CameraController : MonoBehaviour
         }
 
         _cameraPositionResetCoroutine = null;
+    }
+
+    private void SwitchCameraState()
+    {
+        _cameraState = _cameraState == CameraState.FirstPerson ? CameraState.ThirdPerson : CameraState.FirstPerson;
+
+        if (_cameraState == CameraState.FirstPerson)
+        {
+            if (_cameraPositionResetCoroutine != null)
+            {
+                StopCoroutine(_cameraPositionResetCoroutine);
+                _cameraPositionResetCoroutine = null;
+            }
+            _camera.transform.localPosition = _targetCenter;
+        }
     }
 }
