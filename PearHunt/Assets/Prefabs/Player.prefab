@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2468179239454476035}
   - component: {fileID: -7648718500436532858}
   - component: {fileID: -3532767126115414387}
+  - component: {fileID: 2109435675388278400}
+  - component: {fileID: -130737037387111027}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -141,13 +143,52 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1
-  m_Radius: 0.5
+  m_Height: 0.5
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!114 &2109435675388278400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4074906847348259802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9d7677232502c4da302b4635adf66b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwitchProp
+  props:
+  - mesh: {fileID: -5754084199372789682, guid: 5aa13bccd55e1394ab142701dd55bbde, type: 3}
+    inUse: 1
+  - mesh: {fileID: -5754084199372789682, guid: 0933a436ada8c2c43af11ca5dbf435a1, type: 3}
+    inUse: 0
+  switchProp: 114
+--- !u!65 &-130737037387111027
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4074906847348259802}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.95459443, z: 1}
+  m_Center: {x: 0, y: 0.5227028, z: 0}
 --- !u!1001 &175870115725727645
 PrefabInstance:
   m_ObjectHideFlags: 0
