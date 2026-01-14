@@ -45,8 +45,8 @@ public class PlayerController : NetworkBehaviour
             StartCoroutine(jumping());
         }
 
+       
     }
-
     bool GroundCheck()
     {
         return Physics.Raycast(transform.position, Vector3.down, groundCheckRange, groundLayer);
