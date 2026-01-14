@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 305443593
+  GlobalObjectIdHash: 1300499977
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -317,10 +317,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   playerCamera: {fileID: 6547937600318302828}
+  cameraBlockingLayer:
+    serializedVersion: 2
+    m_Bits: 64
   lookSensitivity: 50
-  cameraOffset: -5.37
+  cameraOffset: -5
   HorizontalClamp: 80
   targetBodyRotateSpeed: 10
+  cameraResetSpeed: 2
 --- !u!1001 &4819325756323099018
 PrefabInstance:
   m_ObjectHideFlags: 0
