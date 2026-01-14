@@ -163,7 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9d7677232502c4da302b4635adf66b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwitchProp
-  ShowTopMostFoldoutHeaderGroup: 1
   props:
   - mesh: {fileID: -5754084199372789682, guid: 5aa13bccd55e1394ab142701dd55bbde, type: 3}
     inUse: 1

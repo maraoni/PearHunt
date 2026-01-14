@@ -1,5 +1,5 @@
-using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Unity.Netcode;
 using UnityEngine;
@@ -39,7 +39,7 @@ public class SwitchProp : NetworkBehaviour
             PropData newProp = GetNewProp();
 
             PropData currentProp = Array.Find(props, p => p.mesh.sharedMesh == propRenderer.sharedMesh);
-            
+
 
             if (newProp != null)
             {
@@ -54,7 +54,7 @@ public class SwitchProp : NetworkBehaviour
                         SendPropChange_ServerRPC(i, (int)OwnerClientId);
                     }
                 }
-                
+
                 //propRenderer.transform.localScale = GetNewProp().transform.localScale;
             }
 
@@ -88,6 +88,26 @@ public class SwitchProp : NetworkBehaviour
         if ((int)OwnerClientId != playerIndex) return;
 
         propRenderer.mesh = props[propIndex].mesh.sharedMesh;
+        CalculateBounds();
+    }
+
+    public void CalculateBounds()
+    {
+        Bounds bounds = propRenderer.mesh.bounds;
+
+        Vector3 finalSize = bounds.size;
+        Vector3 finalCenter = bounds.center;
+
+        finalCenter.x *= propRenderer.transform.localScale.x;
+        finalCenter.y *= propRenderer.transform.localScale.y;
+        finalCenter.z *= propRenderer.transform.localScale.z;
+
+        finalSize.x *= propRenderer.transform.localScale.x;
+        finalSize.y *= propRenderer.transform.localScale.y;
+        finalSize.z *= propRenderer.transform.localScale.z;
+
+        GetComponent<BoxCollider>().size = finalSize * 0.9f;
+        GetComponent<BoxCollider>().center = finalCenter;
     }
 }
 
