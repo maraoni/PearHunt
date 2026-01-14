@@ -11,7 +11,6 @@ public class CharControllerMovement : NetworkBehaviour
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
-
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,8 +43,8 @@ public class CharControllerMovement : NetworkBehaviour
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         move = Vector3.ClampMagnitude(move, 1); // Normalize diagonal movement
-
-        if (move != Vector3.zero) transform.forward = move;
+        
+        move = transform.TransformDirection(move);
 
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
@@ -55,6 +54,7 @@ public class CharControllerMovement : NetworkBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         Vector3 finalMove = (move * speed) + new Vector3(0, velocity.y, 0);
+        
         controller.Move(finalMove * Time.deltaTime);
     }
 }

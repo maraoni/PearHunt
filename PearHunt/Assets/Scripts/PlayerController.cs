@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
+// todo: this script should be deleted?
 public class PlayerController : NetworkBehaviour
 {
     public float MovementSpeed = 5.0f;
