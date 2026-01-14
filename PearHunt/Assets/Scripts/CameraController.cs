@@ -59,10 +59,11 @@ public class CameraController : MonoBehaviour
         _camera.transform.SetParent(transform);
 
         _camera.transform.localPosition = new Vector3(0f, 0f, cameraOffset);
-        _targetCenter = Target.gameObject.GetComponent<Collider>().bounds.center;
-        //Debug.Log(_targetCenter);
-        transform.position += new Vector3(0f, _targetCenter.y, 0f);
         _mesh = Target.GetComponentInChildren<MeshRenderer>();
+        //Debug.Log(_targetCenter);
+        _targetCenter = _mesh.bounds.center;
+        transform.position = new Vector3(0f, _targetCenter.y, 0f);
+        
     }
 
     void Update()

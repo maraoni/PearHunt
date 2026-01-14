@@ -38,12 +38,13 @@ public class SwitchProp : NetworkBehaviour
         {
             PropData newProp = GetNewProp();
 
-            PropData currentProp = Array.Find(props, p => p.mesh.sharedMesh == propRenderer.sharedMesh);
+            PropData currentProp = Array.Find(props, p => p.inUse == true);
 
 
             if (newProp != null)
             {
-                currentProp.inUse = false;
+                if (currentProp != null) currentProp.inUse = false;
+                
                 newProp.inUse = true;
                 //propRenderer.mesh = newProp.mesh.sharedMesh;
 
@@ -89,6 +90,9 @@ public class SwitchProp : NetworkBehaviour
 
         propRenderer.mesh = props[propIndex].mesh.sharedMesh;
         CalculateBounds();
+
+        if (!IsOwner) return;
+        CameraController.Instance.InitializeCamera(transform);
     }
 
     public void CalculateBounds()
