@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 [Serializable]
@@ -16,7 +17,10 @@ public struct SoundInstance
 
 public enum SoundEffects
 {
-   
+   Taunt1,
+   Taunt2,
+   Taunt3,
+
 }
 
 public class SoundManager : MonoBehaviour
@@ -31,6 +35,18 @@ public class SoundManager : MonoBehaviour
                 soundInstances[i].PlaySoundEffect();
                 return;
             }
+    }
+
+    [ServerRpc]
+    public void PlaySound_ServerRPC(SoundEffects anEffect)
+    {
+        Broadcast_ClientRPC(anEffect);
+    }
+
+    [ClientRpc]
+    public void Broadcast_ClientRPC(SoundEffects anEffect)
+    {
+        PlaySoundEffect(anEffect);
     }
 
     #region Singleton
