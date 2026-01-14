@@ -7,6 +7,20 @@ using UnityEngine;
 
 public class TeamsUi : MonoBehaviour
 {
+    public static TeamsUi Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
     private List<PlayerDate> players;
     //change the list of gameobject to a list of the script that holds the player info
 
@@ -25,8 +39,8 @@ public class TeamsUi : MonoBehaviour
 
         if (HunterTeam.Count >= maxHunters)
         {
+            Currentplayer.Team.Value = 0;
 
-            Currentplayer.TeamProp = true;
 
         }
         else
@@ -34,11 +48,11 @@ public class TeamsUi : MonoBehaviour
             if (randomnum == 0)
             {
                 Debug.Log("You are on the Hunter Team");
-                Currentplayer.TeamHunt = true;
+                Currentplayer.Team.Value = 1;
             }
             else
             {
-                Currentplayer.TeamHunt = false;
+                Currentplayer.Team.Value = 0;
                 Debug.Log("You are on the Prop Team");
             }
         }
@@ -51,18 +65,18 @@ public class TeamsUi : MonoBehaviour
     {
         foreach (PlayerDate pl in players)
         {
-            if (pl.TeamHunt)
+            if (pl.Team.Value == 0)
             {
                 if (!HunterTeam.Contains(pl.name))
                 {
-                    Hunttext.text = "Hunters: " + pl.name.ToString();
+                    Hunttext.text +=  pl.name.ToString();
                 }
             }
-            else
+            else if (pl.Team.Value == 1)
             {
                 if (!propTeam.Contains(pl.name))
                 {
-                    Hunttext.text = "Prop: " + pl.name.ToString();
+                    Hunttext.text += pl.name.ToString();
                 }
             }
         }
