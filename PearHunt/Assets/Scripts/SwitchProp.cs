@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 class PropData
 {
-    public MeshFilter mesh;
+    public Mesh mesh;
     public bool inUse;
 }
 
@@ -88,7 +88,7 @@ public class SwitchProp : NetworkBehaviour
     {
         if ((int)OwnerClientId != playerIndex) return;
 
-        propRenderer.mesh = props[propIndex].mesh.sharedMesh;
+        propRenderer.mesh = props[propIndex].mesh;
         CalculateBounds();
 
         if (!IsOwner) return;
