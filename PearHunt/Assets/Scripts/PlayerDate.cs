@@ -2,7 +2,7 @@ using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerDate : NetworkBehaviour
+public class PlayerDate : NetworkBehaviour, IDamageable
 {
 
     public NetworkVariable<FixedString64Bytes> PlayerName = new NetworkVariable<FixedString64Bytes> ("player");
