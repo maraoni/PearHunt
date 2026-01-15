@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class CharControllerMovement : NetworkBehaviour
 {
@@ -22,7 +23,7 @@ public class CharControllerMovement : NetworkBehaviour
     public override void OnNetworkSpawn() // network equivalent of start
     {
         base.OnNetworkSpawn();
-        if (IsOwner)
+        if (IsOwner && SceneManager.GetActiveScene().name == "PlayTest" )
         {
             //LobbyUI.Instance.ActivateLobbyUI(false);
 

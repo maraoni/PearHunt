@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
 
@@ -22,48 +23,29 @@ public class TeamsUi : MonoBehaviour
     }
 
 
-    private List<PlayerDate> players;
+    private List<PlayerDate> players = new();
     //change the list of gameobject to a list of the script that holds the player info
 
-    private PlayerDate Currentplayer;
 
   [SerializeField]  private TextMeshProUGUI Hunttext;
     [SerializeField] private TextMeshProUGUI PropText;
 
-    private List<PlayerDate> HunterTeam;
-    private List<PlayerDate> propTeam;
+
     private int maxHunters = 2;
     public void RandomTeam()
     {
-        int randomnum = (int)Random.Range(0, 3);
+        
         if (players.Count == 0) return;
-        Currentplayer = players[0];
+       
+        Debug.Log("randomising team");
 
-        if (HunterTeam.Count >= maxHunters)
-        {
-            Currentplayer.Team.Value = 0;
-          propTeam.Add(Currentplayer);
-            players.Remove(Currentplayer);
-            Debug.Log("You are on the Prop Team");
 
-        }
-        else
+        foreach (PlayerDate pl in players)
         {
-            if (randomnum == 0)
-            {
-                propTeam.Add(Currentplayer);
-                players.Remove(Currentplayer);
-                Debug.Log("You are on the Hunter Team");
-                Currentplayer.Team.Value = 1;
-            }
-            else
-            {
-                HunterTeam.Add(Currentplayer);
-                players.Remove(Currentplayer);
-                Currentplayer.Team.Value = 0;
-                Debug.Log("You are on the Prop Team");
-            }
+            int randomnum = (int)Random.Range(0, 2);
+            pl.Team.Value = randomnum; 
         }
+       
         UpdateTeamUI();
 
 
@@ -71,25 +53,25 @@ public class TeamsUi : MonoBehaviour
     }
     public void UpdateTeamUI()
     {
+
+        Hunttext.text = "";
+        PropText.text = "";
+
         foreach (PlayerDate pl in players)
         {
             if (pl.Team.Value == 0)
             {
-                if (!HunterTeam.Contains(pl))
-                {
+              
                     Hunttext.text +=  pl.name.ToString();
-                }
+                
             }
             else if (pl.Team.Value == 1)
             {
-                if (!propTeam.Contains(pl))
-                {
-                    Hunttext.text += pl.name.ToString();
-                }
+                
+                   PropText.text += pl.name.ToString();
+                
             }
         }
-       
-        PropText.text = "Props: " + propTeam.Count.ToString();
     }
 
     public void Addplayers(PlayerDate pl)
@@ -97,10 +79,17 @@ public class TeamsUi : MonoBehaviour
         players.Add(pl);
         UpdateTeamUI();
     }
+    public void Start()
+    {
+        RandomTeam();
+    }
+
+    public void StartGame()
+    {
+        NetworkManager.Singleton.SceneManager.LoadScene("PlayTest", UnityEngine.SceneManagement.LoadSceneMode.Single);
+    }
 
 
-
-   
 
 
 }
