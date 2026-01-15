@@ -24,7 +24,7 @@ public class CharControllerMovement : NetworkBehaviour
         base.OnNetworkSpawn();
         if (IsOwner)
         {
-            LobbyUI.Instance.ActivateLobbyUI(false);
+            //LobbyUI.Instance.ActivateLobbyUI(false);
             CameraController.Instance.InitializeCamera(transform);
         }
     }
