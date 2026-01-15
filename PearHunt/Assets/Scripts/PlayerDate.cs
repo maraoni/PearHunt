@@ -53,7 +53,14 @@ public class PlayerDate : NetworkBehaviour
     }
     private void OnDestroy()
     {
-        Team.OnValueChanged -= UpdateUi;
+        if (Team.Value == 1)
+        {
+           Destroy(gameObject);
+        }else
+        {
+            Team.OnValueChanged -= UpdateUi;
+        }
+            
     }
 
 }
