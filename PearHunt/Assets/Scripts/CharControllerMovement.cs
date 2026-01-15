@@ -6,7 +6,7 @@ public class CharControllerMovement : NetworkBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpHeight = 2f;
-    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float gravity = -15f;
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -24,7 +24,9 @@ public class CharControllerMovement : NetworkBehaviour
         base.OnNetworkSpawn();
         if (IsOwner)
         {
-            LobbyUI.Instance.ActivateLobbyUI(false);
+            //LobbyUI.Instance.ActivateLobbyUI(false);
+
+            transform.position += Vector3.up * 7; // move player up to avoid spawn collisions
             CameraController.Instance.InitializeCamera(transform);
         }
     }
@@ -55,6 +57,35 @@ public class CharControllerMovement : NetworkBehaviour
 
         Vector3 finalMove = (move * speed) + new Vector3(0, velocity.y, 0);
         
-        controller.Move(finalMove * Time.deltaTime);
+        controller.Move(finalMove * Time.deltaTime); 
+        
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            PlayTaunt_ServerRPC(SoundEffects.Taunt1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayTaunt_ServerRPC(SoundEffects.Taunt2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PlayTaunt_ServerRPC(SoundEffects.Taunt3);
+        }
+    }
+
+    [ServerRpc]
+    public void PlayTaunt_ServerRPC(SoundEffects anEffect)
+    {
+        BroadcastTaunt_ClientRPC(anEffect);
+        Debug.Log("playing sound on server" + anEffect.ToString());
+    }
+
+    [ClientRpc]
+    public void BroadcastTaunt_ClientRPC(SoundEffects anEffect)
+    {
+        SoundManager.Instance.PlaySoundEffect(anEffect);
+        Debug.Log("playing sound on client" + anEffect.ToString());
     }
 }

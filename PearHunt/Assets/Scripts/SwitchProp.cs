@@ -1,22 +1,22 @@
-using NUnit.Framework;
 using System;
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.LightTransport.PostProcessing;
 using Random = UnityEngine.Random;
 
 [Serializable]
 class PropData
 {
-    public MeshFilter mesh;
+    public Mesh mesh;
     public bool inUse;
 }
 
-public class SwitchProp : MonoBehaviour
+public class SwitchProp : NetworkBehaviour
 {
     [SerializeField] PropData[] props;
 
     [SerializeField] KeyCode switchProp;
 
+    BoxCollider propCollider;
     MeshFilter propRenderer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,17 +28,30 @@ public class SwitchProp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner || !IsSpawned) return;
+
         if (Input.GetKeyDown(switchProp))
         {
             PropData newProp = GetNewProp();
 
-            PropData currentProp = Array.Find(props, p => p.mesh.sharedMesh == propRenderer.sharedMesh);
-            currentProp.inUse = false;
+            PropData currentProp = Array.Find(props, p => p.inUse == true);
+
 
             if (newProp != null)
             {
+                if (currentProp != null) currentProp.inUse = false;
+                
                 newProp.inUse = true;
-                propRenderer.mesh = newProp.mesh.sharedMesh;
+                //propRenderer.mesh = newProp.mesh.sharedMesh;
+
+                for (int i = 0; i < props.Length; i++)
+                {
+                    if (props[i].inUse)
+                    {
+                        SendPropChange_ServerRPC(i, (int)OwnerClientId);
+                    }
+                }
+
                 //propRenderer.transform.localScale = GetNewProp().transform.localScale;
             }
 
@@ -60,8 +73,41 @@ public class SwitchProp : MonoBehaviour
         return availableProps[value];
     }
 
-    public void RespawnProp()
+    [ServerRpc]
+    private void SendPropChange_ServerRPC(int propIndex, int playerIndex)
     {
-        transform.position = new Vector3(0, 0, 0);
+        Broadcast_PropChange_ClientRPC(propIndex, playerIndex);
+    }
+
+    [ClientRpc]
+    private void Broadcast_PropChange_ClientRPC(int propIndex, int playerIndex)
+    {
+        if ((int)OwnerClientId != playerIndex) return;
+
+        propRenderer.mesh = props[propIndex].mesh;
+        CalculateBounds();
+
+        if (!IsOwner) return;
+        CameraController.Instance.InitializeCamera(transform);
+    }
+
+    public void CalculateBounds()
+    {
+        Bounds bounds = propRenderer.mesh.bounds;
+
+        Vector3 finalSize = bounds.size;
+        Vector3 finalCenter = bounds.center;
+
+        finalCenter.x *= propRenderer.transform.localScale.x;
+        finalCenter.y *= propRenderer.transform.localScale.y;
+        finalCenter.z *= propRenderer.transform.localScale.z;
+
+        finalSize.x *= propRenderer.transform.localScale.x;
+        finalSize.y *= propRenderer.transform.localScale.y;
+        finalSize.z *= propRenderer.transform.localScale.z;
+
+        GetComponent<BoxCollider>().size = finalSize * 0.9f;
+        GetComponent<BoxCollider>().center = finalCenter;
     }
 }
+
