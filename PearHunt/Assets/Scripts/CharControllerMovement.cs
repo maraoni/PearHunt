@@ -6,7 +6,7 @@ public class CharControllerMovement : NetworkBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpHeight = 2f;
-    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float gravity = -15f;
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -25,6 +25,8 @@ public class CharControllerMovement : NetworkBehaviour
         if (IsOwner)
         {
             //LobbyUI.Instance.ActivateLobbyUI(false);
+
+            transform.position += Vector3.up * 7; // move player up to avoid spawn collisions
             CameraController.Instance.InitializeCamera(transform);
         }
     }
