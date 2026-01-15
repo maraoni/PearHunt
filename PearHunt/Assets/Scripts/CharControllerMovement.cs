@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.Services.Authentication.PlayerAccounts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
@@ -9,6 +10,7 @@ public class CharControllerMovement : NetworkBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float gravity = -15f;
+    [SerializeField] private GameObject m_GUN;
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -45,6 +47,11 @@ public class CharControllerMovement : NetworkBehaviour
             Debug.Log("player position is " + transform.position.ToString());
             CameraController.Instance.InitializeCamera(transform);
             controller.enabled = true; // re-enable controller
+            PlayerDate playerData = GetComponent<PlayerDate>();
+            if (playerData.Team.Value == 1)
+            {
+                m_GUN.SetActive(true);
+            }
         }
     }
 

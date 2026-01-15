@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kimber K6S
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b91d8908acbb0e24eb68958e95507fe5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -160,6 +164,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7648718500436532858, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
+      propertyPath: m_GUN
+      value: 
+      objectReference: {fileID: 1276943722315183361}
+    - target: {fileID: -3532767126115414387, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
+      propertyPath: m_Height
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -3532767126115414387, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
+      propertyPath: m_Center.y
+      value: 0.335
+      objectReference: {fileID: 0}
+    - target: {fileID: -3532767126115414387, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
+      propertyPath: m_SkinWidth
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 848893232480106463, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -199,6 +219,10 @@ PrefabInstance:
     - target: {fileID: 848893232480106463, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3325822589910144837, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4074906847348259802, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
       propertyPath: m_Name

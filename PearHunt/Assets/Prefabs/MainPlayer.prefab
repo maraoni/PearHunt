@@ -127,6 +127,7 @@ MonoBehaviour:
   speed: 5
   jumpHeight: 2
   gravity: -9.81
+  m_GUN: {fileID: 0}
 --- !u!143 &-3532767126115414387
 CharacterController:
   m_ObjectHideFlags: 0
@@ -151,7 +152,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.3, z: 0}
+  m_Center: {x: 0, y: 0.339, z: 0}
 --- !u!114 &2109435675388278400
 MonoBehaviour:
   m_ObjectHideFlags: 0
