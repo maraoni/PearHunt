@@ -28,6 +28,7 @@ public enum SoundEffects
    PropSwitchSound,
    ReloadingSound,
    ShootingSound,
+   Music
 
 }
 

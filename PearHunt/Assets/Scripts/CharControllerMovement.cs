@@ -27,8 +27,6 @@ public class CharControllerMovement : NetworkBehaviour
         if (IsOwner)
         {
             //LobbyUI.Instance.ActivateLobbyUI(false);
-            transform.position += Vector3.up * 7;
-
 
 
 
