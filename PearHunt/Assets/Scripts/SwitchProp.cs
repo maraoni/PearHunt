@@ -59,4 +59,9 @@ public class SwitchProp : MonoBehaviour
 
         return availableProps[value];
     }
+
+    public void RespawnProp()
+    {
+        transform.position = new Vector3(0, 0, 0);
+    }
 }
