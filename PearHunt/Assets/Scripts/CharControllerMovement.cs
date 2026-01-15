@@ -66,11 +66,6 @@ public class CharControllerMovement : NetworkBehaviour
         {
             PlayTaunt_ServerRPC(SoundEffects.Taunt2);
         }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlayTaunt_ServerRPC(SoundEffects.Taunt3);
-        }
     }
 
     [ServerRpc]

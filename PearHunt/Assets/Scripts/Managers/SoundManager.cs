@@ -19,7 +19,15 @@ public enum SoundEffects
 {
    Taunt1,
    Taunt2,
-   Taunt3,
+   PlayerHitDing,
+   NonPlayerHitSound,
+   HunterDeathSound,
+   ButtonPress,
+   JumpSound,
+   PearDeathSound,
+   PropSwitchSound,
+   ReloadingSound,
+   ShootingSound,
 
 }
 
