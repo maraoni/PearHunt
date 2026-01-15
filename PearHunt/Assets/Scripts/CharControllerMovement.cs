@@ -29,6 +29,8 @@ public class CharControllerMovement : NetworkBehaviour
         if (IsOwner)
         {
             //LobbyUI.Instance.ActivateLobbyUI(false);
+            transform.position += Vector3.up * 7;
+
 
 
 
@@ -75,6 +77,8 @@ public class CharControllerMovement : NetworkBehaviour
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            SoundManager.Instance.PlaySoundEffect(SoundEffects.JumpSound);
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -91,11 +95,6 @@ public class CharControllerMovement : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             PlayTaunt_ServerRPC(SoundEffects.Taunt2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlayTaunt_ServerRPC(SoundEffects.Taunt3);
         }
     }
 
