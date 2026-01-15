@@ -1,7 +1,6 @@
 using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,7 +18,7 @@ public class LobbyUI : MonoBehaviour
     [SerializeField] Button m_StartHostButton;
     [SerializeField] Button m_StartClientButton;
     [SerializeField] TMP_InputField m_InputField;
-    [SerializeField] SceneAsset sceneSwapAsset;
+    [SerializeField] string sceneSwapAsset;
 
     void Start()
     {
@@ -45,7 +44,7 @@ public class LobbyUI : MonoBehaviour
     void StartHost()
     {
         NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene(sceneSwapAsset.name, LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene(sceneSwapAsset, LoadSceneMode.Single);
     }
 
     void ChangeIP(string aInput)

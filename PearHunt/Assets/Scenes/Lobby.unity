@@ -808,7 +808,7 @@ MonoBehaviour:
   m_StartHostButton: {fileID: 753013797}
   m_StartClientButton: {fileID: 1305088852}
   m_InputField: {fileID: 1252269904}
-  sceneSwapAsset: {fileID: 102900000, guid: e24cba0e0220b124bb6d0a50e897fe95, type: 3}
+  sceneSwapAsset: PlayTest
 --- !u!1 &439880282
 GameObject:
   m_ObjectHideFlags: 0
