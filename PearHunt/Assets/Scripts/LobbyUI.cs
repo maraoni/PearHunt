@@ -2,6 +2,8 @@ using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LobbyUI : MonoBehaviour
@@ -17,9 +19,11 @@ public class LobbyUI : MonoBehaviour
     [SerializeField] Button m_StartHostButton;
     [SerializeField] Button m_StartClientButton;
     [SerializeField] TMP_InputField m_InputField;
+    [SerializeField] string sceneSwapAsset;
 
     void Start()
     {
+        EventSystem.DontDestroyOnLoad(EventSystem.current.gameObject);
         m_StartHostButton.onClick.AddListener(StartHost);
         m_StartClientButton.onClick.AddListener(StartClient);
         m_InputField.onValueChanged.AddListener(ChangeIP);
@@ -42,7 +46,7 @@ public class LobbyUI : MonoBehaviour
     void StartHost()
     {
         NetworkManager.Singleton.StartHost();
-        
+        NetworkManager.Singleton.SceneManager.LoadScene(sceneSwapAsset, LoadSceneMode.Single);
     }
 
     void ChangeIP(string aInput)
@@ -53,6 +57,6 @@ public class LobbyUI : MonoBehaviour
 
     public void ActivateLobbyUI(bool should)
     {
-        gameObject.SetActive(should);
+        gameObject?.SetActive(should);
     }
 }
