@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.SceneManagement;
 
 public class CharControllerMovement : NetworkBehaviour
@@ -23,12 +24,27 @@ public class CharControllerMovement : NetworkBehaviour
     public override void OnNetworkSpawn() // network equivalent of start
     {
         base.OnNetworkSpawn();
-        if (IsOwner && SceneManager.GetActiveScene().name == "PlayTest" )
+        if (IsOwner)
         {
             //LobbyUI.Instance.ActivateLobbyUI(false);
 
-            transform.position += Vector3.up * 7; // move player up to avoid spawn collisions
+
+
+        }
+
+        NetworkManager.Singleton.SceneManager.OnLoad += Camera;
+    }
+
+
+    public void Camera(ulong clientId, string sceneName, LoadSceneMode loadSceneMode, AsyncOperation asyncOperation)
+    {
+        if (IsOwner && sceneName == "PlayTest")
+        {
+            controller.enabled = false; // disable controller to be able to move player
+            transform.position = new Vector3(0, 12, 0); // move player up to avoid spawn collisions
+            Debug.Log("player position is " + transform.position.ToString());
             CameraController.Instance.InitializeCamera(transform);
+            controller.enabled = true; // re-enable controller
         }
     }
 
