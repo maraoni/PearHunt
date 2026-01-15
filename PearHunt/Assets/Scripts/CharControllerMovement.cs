@@ -24,7 +24,8 @@ public class CharControllerMovement : NetworkBehaviour
         base.OnNetworkSpawn();
         if (IsOwner)
         {
-            LobbyUI.Instance.ActivateLobbyUI(false);
+            //LobbyUI.Instance.ActivateLobbyUI(false);
+            transform.position += Vector3.up * 7;
             CameraController.Instance.InitializeCamera(transform);
         }
     }
@@ -49,6 +50,8 @@ public class CharControllerMovement : NetworkBehaviour
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            SoundManager.Instance.PlaySoundEffect(SoundEffects.JumpSound);
         }
 
         velocity.y += gravity * Time.deltaTime;

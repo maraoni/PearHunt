@@ -38,6 +38,8 @@ public class BangBang : NetworkBehaviour
 
             Debug.Log("Clicked left mouse button");
             animator.SetTrigger("Shoot");
+
+            PlayShooting_ServerRPC(SoundEffects.ShootingSound);
         }
     }
 
@@ -61,5 +63,19 @@ public class BangBang : NetworkBehaviour
     private void OnReset()
     {
         Debug.Log("Can fire again");
+    }
+
+    [ServerRpc]
+    public void PlayShooting_ServerRPC(SoundEffects anEffect)
+    {
+        BroadcastShooting_ClientRPC(anEffect);
+        Debug.Log("playing sound on server" + anEffect.ToString());
+    }
+
+    [ClientRpc]
+    public void BroadcastShooting_ClientRPC(SoundEffects anEffect)
+    {
+        SoundManager.Instance.PlaySoundEffect(anEffect);
+        Debug.Log("playing sound on client" + anEffect.ToString());
     }
 }

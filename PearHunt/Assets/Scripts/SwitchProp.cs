@@ -59,6 +59,8 @@ public class SwitchProp : NetworkBehaviour
                 //propRenderer.transform.localScale = GetNewProp().transform.localScale;
             }
 
+            SoundManager.Instance.PlaySoundEffect(SoundEffects.PropSwitchSound);
+
         }
     }
 
