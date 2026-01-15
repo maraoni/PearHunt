@@ -53,6 +53,11 @@ public class BangBang : NetworkBehaviour
             {
                 //take damage
                 Debug.Log("Hit " + hitInfo.collider.gameObject.name + " for " + damage + " damage.");
+                IDamageable damageable = hitInfo.collider.gameObject.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage((int)damage);
+                }
             }
         }
         

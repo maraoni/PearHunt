@@ -1,12 +1,14 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.SceneManagement;
 
 public class CharControllerMovement : NetworkBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpHeight = 2f;
-    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float gravity = -15f;
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -26,7 +28,25 @@ public class CharControllerMovement : NetworkBehaviour
         {
             //LobbyUI.Instance.ActivateLobbyUI(false);
             transform.position += Vector3.up * 7;
+
+
+
+
+        }
+
+        NetworkManager.Singleton.SceneManager.OnLoad += Camera;
+    }
+
+
+    public void Camera(ulong clientId, string sceneName, LoadSceneMode loadSceneMode, AsyncOperation asyncOperation)
+    {
+        if (IsOwner && sceneName == "PlayTest")
+        {
+            controller.enabled = false; // disable controller to be able to move player
+            transform.position = new Vector3(0, 12, 0); // move player up to avoid spawn collisions
+            Debug.Log("player position is " + transform.position.ToString());
             CameraController.Instance.InitializeCamera(transform);
+            controller.enabled = true; // re-enable controller
         }
     }
 

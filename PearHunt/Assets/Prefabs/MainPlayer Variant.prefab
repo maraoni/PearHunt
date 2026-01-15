@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b7a49abe927be4ca3505616ebd735a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BangBang
+  ShowTopMostFoldoutHeaderGroup: 1
   firerate: 0.5
   damage: 10
   hiders:
@@ -205,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4286405710892010679, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 566942743
+      value: 1344518072
       objectReference: {fileID: 0}
     - target: {fileID: 4286405710892010679, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
       propertyPath: SceneMigrationSynchronization
@@ -215,8 +216,13 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 2703761001
       objectReference: {fileID: 0}
+    - target: {fileID: 7574103501876412696, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
+      propertyPath: cameraOffset
+      value: -2.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8394806135814060315, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 415581892011885587, guid: af701b835bfabc8429183b4c095a03fb, type: 3}
       insertIndex: -1

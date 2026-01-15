@@ -50,20 +50,18 @@ public class CameraController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        _camera = Camera.main;
         if (_camera == null)
         {
-            _camera = new GameObject().AddComponent<Camera>();
+            _camera = new GameObject("PlayerCamera").AddComponent<Camera>();
+            _camera.transform.SetParent(transform);
         }
-
-        _camera.transform.SetParent(transform);
 
         _camera.transform.localPosition = new Vector3(0f, 0f, cameraOffset);
         _mesh = Target.GetComponentInChildren<MeshRenderer>();
         //Debug.Log(_targetCenter);
         _targetCenter = _mesh.bounds.center;
-        transform.position = new Vector3(0f, _targetCenter.y, 0f);
-        
+        transform.position = _targetCenter;
+
     }
 
     void Update()
