@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -29,35 +30,42 @@ public class TeamsUi : MonoBehaviour
   [SerializeField]  private TextMeshProUGUI Hunttext;
     [SerializeField] private TextMeshProUGUI PropText;
 
-    private List<string> HunterTeam;
-    private List<string> propTeam;
+    private List<PlayerDate> HunterTeam;
+    private List<PlayerDate> propTeam;
     private int maxHunters = 2;
     public void RandomTeam()
     {
         int randomnum = (int)Random.Range(0, 3);
-
+        if (players.Count == 0) return;
+        Currentplayer = players[0];
 
         if (HunterTeam.Count >= maxHunters)
         {
             Currentplayer.Team.Value = 0;
-
+          propTeam.Add(Currentplayer);
+            players.Remove(Currentplayer);
+            Debug.Log("You are on the Prop Team");
 
         }
         else
         {
             if (randomnum == 0)
             {
+                propTeam.Add(Currentplayer);
+                players.Remove(Currentplayer);
                 Debug.Log("You are on the Hunter Team");
                 Currentplayer.Team.Value = 1;
             }
             else
             {
+                HunterTeam.Add(Currentplayer);
+                players.Remove(Currentplayer);
                 Currentplayer.Team.Value = 0;
                 Debug.Log("You are on the Prop Team");
             }
         }
+        UpdateTeamUI();
 
-       
 
 
     }
@@ -67,14 +75,14 @@ public class TeamsUi : MonoBehaviour
         {
             if (pl.Team.Value == 0)
             {
-                if (!HunterTeam.Contains(pl.name))
+                if (!HunterTeam.Contains(pl))
                 {
                     Hunttext.text +=  pl.name.ToString();
                 }
             }
             else if (pl.Team.Value == 1)
             {
-                if (!propTeam.Contains(pl.name))
+                if (!propTeam.Contains(pl))
                 {
                     Hunttext.text += pl.name.ToString();
                 }
@@ -84,17 +92,15 @@ public class TeamsUi : MonoBehaviour
         PropText.text = "Props: " + propTeam.Count.ToString();
     }
 
-
     public void Addplayers(PlayerDate pl)
     {
         players.Add(pl);
-        Currentplayer = pl;
+        UpdateTeamUI();
     }
 
-    public void Broadcast_UptadeTeams_CliendRCP()
-    {
 
-    }
+
+   
 
 
 }

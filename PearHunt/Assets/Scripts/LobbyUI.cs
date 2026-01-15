@@ -2,6 +2,7 @@ using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -22,6 +23,7 @@ public class LobbyUI : MonoBehaviour
 
     void Start()
     {
+        EventSystem.DontDestroyOnLoad(EventSystem.current.gameObject);
         m_StartHostButton.onClick.AddListener(StartHost);
         m_StartClientButton.onClick.AddListener(StartClient);
         m_InputField.onValueChanged.AddListener(ChangeIP);
