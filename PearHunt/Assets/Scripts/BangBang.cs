@@ -58,6 +58,8 @@ public class BangBang : NetworkBehaviour
                 {
                     damageable.TakeDamage((int)damage);
                 }
+
+                SoundManager.Instance.PlaySoundEffect(SoundEffects.PlayerHitDing);
             }
         }
         
