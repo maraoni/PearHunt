@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Zebastian_Gym.unity
     guid: da5fff57029f26641a85c7c448962125
+  - enabled: 1
+    path: Assets/Scenes/Nabil_Gym.unity
+    guid: e1ae9a6649623a248ae64fa54d4eef30
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
